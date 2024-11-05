@@ -11,7 +11,7 @@ const SearchBar = () => {
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedQuery(inputValue)
-    }, 500) // 500ms debounce
+    }, 500)
 
     return () => {
       clearTimeout(handler)
@@ -20,6 +20,12 @@ const SearchBar = () => {
 
   const handleSearch = () => {
     dispatch(setQuery(debouncedQuery))
+  }
+
+  const handleEnterKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch()
+    }
   }
 
   const isWeatherDataExist = useSelector(
@@ -37,6 +43,7 @@ const SearchBar = () => {
         className="border rounded p-1.5 md:p-2 w-full max-w-[448px] md:max-w-64"
         placeholder="Enter city name"
         value={inputValue}
+        onKeyDown={handleEnterKey}
         onChange={(e) => setInputValue(e.target.value)}
       />
       <button

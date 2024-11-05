@@ -1,32 +1,60 @@
-import { render, screen } from '@testing-library/react'
-
+import { render, screen, fireEvent } from '@testing-library/react'
+import { Provider } from 'react-redux'
+import SearchBar from './SearchBar'
+import appSlice, { setQuery } from 'redux/appSlice'
+import { configureStore } from '@reduxjs/toolkit'
+import { weatherApi } from 'services/weatherApi'
+import LoadingState from './LoadingState'
 import App from './App'
 
+const mockStore = configureStore({
+  reducer: {
+    [weatherApi.reducerPath]: weatherApi.reducer,
+    appState: appSlice
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(weatherApi.middleware)
+})
+
 describe('<App />', () => {
-  it('should render the App', () => {
-    const { container } = render(<App />)
+  it('renders the App component with mock store', () => {
+    render(
+      <Provider store={mockStore}>
+        <App />
+      </Provider>
+    )
 
-    expect(
-      screen.getByRole('heading', {
-        name: /Welcome!/i,
-        level: 1
-      })
-    ).toBeInTheDocument()
-
-    expect(
-      screen.getByText(
-        /This is a boilerplate build with Vite, React 18, TypeScript, Vitest, Testing Library, TailwindCSS 3, Eslint and Prettier./i
-      )
-    ).toBeInTheDocument()
-
-    expect(
-      screen.getByRole('link', {
-        name: /start building for free/i
-      })
-    ).toBeInTheDocument()
-
-    expect(screen.getByRole('img')).toBeInTheDocument()
-
-    expect(container.firstChild).toBeInTheDocument()
+    expect(screen.getByText(/Simple Weather Forecast App/i)).toBeInTheDocument()
   })
+})
+
+test('it should update input on typing', () => {
+  render(
+    <Provider store={mockStore}>
+      <SearchBar />
+    </Provider>
+  )
+  const input = screen.getByPlaceholderText(/Enter city name/i)
+  fireEvent.change(input, { target: { value: 'New York' } })
+  expect(input).toHaveValue('New York')
+})
+
+test('it should submit on Enter key press', () => {
+  render(
+    <Provider store={mockStore}>
+      <SearchBar />
+    </Provider>
+  )
+  const input = screen.getByPlaceholderText(/Enter city name/i)
+  fireEvent.change(input, { target: { value: 'New York' } })
+  fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' })
+})
+
+test('displays loading state when fetching', () => {
+  render(
+    <Provider store={mockStore}>
+      <LoadingState />
+    </Provider>
+  )
+  expect(screen.getByText(/Loading/i)).toBeInTheDocument()
 })

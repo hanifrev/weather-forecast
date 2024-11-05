@@ -1,4 +1,5 @@
-import { HumidIcon, RainIcon, TempIcon, UVLogo, WindLogo } from 'assets'
+import { HumidIcon, RainIcon, UVLogo, WindLogo } from 'assets'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import { dateConverter, formatDate } from 'utils/dateConverter'
@@ -83,4 +84,4 @@ const CardWeather: React.FC<CardProps> = ({ item, index }) => {
   )
 }
 
-export default CardWeather
+export default React.memo(CardWeather)
