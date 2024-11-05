@@ -14,7 +14,7 @@ once it done, install it
 pnpm install
 ```
 
-After install it, please copy <b>.env</b> file into the root of this repo
+After install it, please copy <b>.env</b> file into the root of this repo,
 .env file is attached on email
 
 #### Run this app
@@ -37,13 +37,13 @@ View and interact with your tests via UI.
 pnpm run test:ui
 ```
 
+Please take a note that i still need to learn more about testing, so there's not much test case in here
+
 #### Build
 
 ```bash
 pnpm run build
 ```
-
-Please take a note that i still need to learn more about testing, so there's not much test case in here
 
 #### API Error
 
