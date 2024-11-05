@@ -7,15 +7,19 @@ interface CityResponse {
   location: City[]
 }
 
-interface WeatherDay {
+interface WeatherForcast {
   fxDate: string
+  tempMax: string
+  tempMin: string
   textDay: string
-  tempMax: number
-  tempMin: number
+  iconDay: string
   humidity: string
+  windSpeedDay: string
+  precip: string
+  uvIndex: string
 }
 
 interface WeatherForecast {
   //   city: string
-  daily: WeatherDay[]
+  daily: WeatherForcast[]
 }

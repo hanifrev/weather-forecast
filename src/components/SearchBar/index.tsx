@@ -29,19 +29,19 @@ const SearchBar = () => {
   return (
     <div
       className={`flex flex-col md:flex-row items-center justify-center md:p-4 gap-2 mb-4 transition-all duration-300 overflow-hidden h-screen ${
-        isWeatherDataExist ? 'max-h-[10vh]' : 'max-h-[70vh]'
+        isWeatherDataExist ? 'max-h-[16vh]' : 'max-h-[70vh]'
       } `}
     >
       <input
         type="text"
-        className="border rounded p-1.5 md:p-2 w-full sm:max-w-60 md:max-w-64"
+        className="border rounded p-1.5 md:p-2 w-full max-w-[448px] md:max-w-64"
         placeholder="Enter city name"
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
       />
       <button
         onClick={handleSearch}
-        className="p-1.5 md:p-2 bg-primary hover:bg-accent focus:bg-light cursor-pointer text-white rounded w-full sm:max-w-60 md:max-w-24 font-medium border border-secondary"
+        className="p-1.5 md:p-2 bg-primary hover:bg-accent cursor-pointer text-white rounded w-full max-w-[448px] md:max-w-24 font-medium border border-secondary"
       >
         Search
       </button>
